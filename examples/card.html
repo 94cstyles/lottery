@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" name="viewport">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="email=no" name="format-detection">
+    <meta name="keywords" content="">
+    <title>刮刮卡</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<canvas class="m-ui-scratch" id="js_lottery"></canvas>
+<button class="m-ui-button" onclick="lottery.reset()">再来一次</button>
+</body>
+<script src="../dist/card.js"></script>
+<script>
+    var img = new Image();
+    img.src = 'images/placeholder.jpg';
+    img.onload = function () {
+        var lottery = new Card(document.getElementById('js_lottery'), {
+            cover: img
+        });
+        lottery.on('start', function (next) {
+            lottery.setResult('images/scratch_no.png');
+            next();
+        });
+        lottery.on('end', function () {
+
+        });
+        window.lottery = lottery;
+    };
+</script>

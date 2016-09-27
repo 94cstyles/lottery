@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="screen-orientation" content="portrait">
+    <title>老虎机</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="m-ui-tiger">
+    <div class="item">
+        <ul class="roller">
+            <li>
+                <img src="./images/tiger_awards_1.png" alt=""/>
+            </li>
+            <li>
+                <img src="./images/tiger_awards_2.png" alt=""/>
+            </li>
+            <li>
+                <img src="./images/tiger_awards_3.png" alt=""/>
+            </li>
+        </ul>
+    </div>
+    <div class="item">
+        <ul class="roller">
+            <li>
+                <img src="./images/tiger_awards_1.png" alt=""/>
+            </li>
+            <li>
+                <img src="./images/tiger_awards_2.png" alt=""/>
+            </li>
+            <li>
+                <img src="./images/tiger_awards_3.png" alt=""/>
+            </li>
+        </ul>
+    </div>
+    <div class="item">
+        <ul class="roller">
+            <li>
+                <img src="./images/tiger_awards_1.png" alt=""/>
+            </li>
+            <li>
+                <img src="./images/tiger_awards_2.png" alt=""/>
+            </li>
+            <li>
+                <img src="./images/tiger_awards_3.png" alt=""/>
+            </li>
+        </ul>
+    </div>
+    <a id="js_toggle" class="toggle" href="javascript:;" onclick="lottery.draw()"></a>
+</div>
+</body>
+<script src="../dist/tiger.js"></script>
+<script>
+    var lottery = new Tiger(document.getElementById('js_toggle'), document.querySelectorAll('.roller'));
+    lottery.on('start', function (next) {
+        next();
+        setTimeout(function () {
+            var ret = [Math.round(Math.random() * 2), Math.round(Math.random() * 2), Math.round(Math.random() * 2)];
+            lottery.setResult(ret);
+//            lottery.reset();
+        }, 1000);
+    });
+    lottery.on('end', function () {
+
+    });
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="screen-orientation" content="portrait">
+    <title>大转盘</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="m-ui-dial">
+    <div id="js_pointer" class="pointer">
+        <a class="btn" href="javascript:;" onclick="lottery.draw()"></a>
+    </div>
+</div>
+</body>
+<script src="../dist/dial.js"></script>
+<script>
+    var lottery = new Dial(document.getElementById('js_pointer'), {
+        speed: 30, //每帧速度
+        areaNumber: 8 //奖区数量
+    });
+    var index = -1;
+    lottery.on('start', function (next) {
+        //请求获取中奖结果
+        index = Math.round(Math.random() * 7);
+        lottery.setResult(index);
+        //假如请求出错
+//        setTimeout(function () {
+//            lottery.reset();
+//        }, 1000);
+        next();
+    });
+    lottery.on('end', function () {
+        console.log('中奖奖区：' + index);
+    });
+</script>
+</html>

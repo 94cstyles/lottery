@@ -1,0 +1,26 @@
+{
+  "name": "lottery",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/lottery.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node build/index.js",
+    "release": "NODE_ENV=production node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOP-Chao/lottery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TOP-Chao/lottery/issues"
+  },
+  "homepage": "https://github.com/TOP-Chao/lottery#readme",
+  "devDependencies": {
+    "babel-preset-es2015-loose-rollup": "^7.0.0",
+    "rollup": "^0.35.10",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-uglify": "^1.0.1"
+  }
+}
