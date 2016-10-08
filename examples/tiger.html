@@ -56,9 +56,8 @@
 </body>
 <script src="../dist/tiger.js"></script>
 <script>
-    var lottery = new Tiger(document.getElementById('js_toggle'), document.querySelectorAll('.roller'));
-    lottery.on('start', function (next) {
-        next();
+    var lottery = new LotteryTiger(document.getElementById('js_toggle'), document.querySelectorAll('.roller'));
+    lottery.on('start', function () {
         setTimeout(function () {
             var ret = [Math.round(Math.random() * 2), Math.round(Math.random() * 2), Math.round(Math.random() * 2)];
             lottery.setResult(ret);

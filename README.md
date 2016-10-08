@@ -20,14 +20,13 @@ draw => () 开始抽奖（注：刮刮卡调用此方法后会直接显示结果
 ```
 
 ```javascript
-var lottery = new Lottery.Card(document.getElementById('js_lottery'),{
+var lottery = new LotteryCard(document.getElementById('js_lottery'),{
     size: 20, //滑动区域大小
     percent: 50, //激活百分比到谋个值 就全显示
     resize: true, //canvas的大小是否是可变的
     cover: null //img or color string, default gray
 });
-lottery.on('start',function(next){
-    next();
+lottery.on('start',function(){
     //中奖结果，传递是中奖结果图片地址
     lottery.setResult('...imageSrc');
 }).on('end',function(){}).on('reset',function(){});
@@ -44,14 +43,13 @@ lottery.on('start',function(next){
 ```
 
 ```javascript
-var lottery = new Lottery.Dial(document.getElementById('js_pointer'), {
+var lottery = new LotteryDial(document.getElementById('js_pointer'), {
         speed: 30, //每帧速度
         areaNumber: 8, //奖区数量
         deviation: 2 //随机结果角度偏差值 为了防止出现指针和扇区分割线无限重合 单位:°
     });
     var index = -1;
-    lottery.on('start', function (next) {
-        next();
+    lottery.on('start', function () {
         //请求获取中奖结果
         index = Math.round(Math.random() * 7);
         //中奖结果，传递停留奖区下标0开始
@@ -112,13 +110,12 @@ var lottery = new Lottery.Dial(document.getElementById('js_pointer'), {
 
 ```javascript
 //老虎机动画因为性能问题采用css3 所以需要完成2个动画fx-bounce fx-roll 详细查看examples
-var lottery = new Tiger(document.getElementById('js_toggle'), document.querySelectorAll('.roller'), {
+var lottery = new LotteryTiger(document.getElementById('js_toggle'), document.querySelectorAll('.roller'), {
         interval: 300, //每个roller间动画间隔
         aniMinTime: 6000, //动画执行最少时间
         resize: true //roller大小是否是可变的
     });
-    lottery.on('start', function (next) {
-            next();
+    lottery.on('start', function () {
             setTimeout(function () {
                 var ret = [Math.round(Math.random() * 2), Math.round(Math.random() * 2), Math.round(Math.random() * 2)];
                 //中奖结果，传递每个roller停留下标0开始

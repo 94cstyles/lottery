@@ -20,12 +20,11 @@
     var img = new Image();
     img.src = 'images/placeholder.jpg';
     img.onload = function () {
-        var lottery = new Card(document.getElementById('js_lottery'), {
+        var lottery = new LotteryCard(document.getElementById('js_lottery'), {
             cover: img
         });
-        lottery.on('start', function (next) {
+        lottery.on('start', function () {
             lottery.setResult('images/scratch_no.png');
-            next();
         });
         lottery.on('end', function () {
 

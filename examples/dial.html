@@ -19,12 +19,12 @@
 </body>
 <script src="../dist/dial.js"></script>
 <script>
-    var lottery = new Dial(document.getElementById('js_pointer'), {
+    var lottery = new LotteryDial(document.getElementById('js_pointer'), {
         speed: 30, //每帧速度
         areaNumber: 8 //奖区数量
     });
     var index = -1;
-    lottery.on('start', function (next) {
+    lottery.on('start', function () {
         //请求获取中奖结果
         index = Math.round(Math.random() * 7);
         lottery.setResult(index);
@@ -32,7 +32,6 @@
 //        setTimeout(function () {
 //            lottery.reset();
 //        }, 1000);
-        next();
     });
     lottery.on('end', function () {
         console.log('中奖奖区：' + index);

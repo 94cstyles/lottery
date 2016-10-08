@@ -1,7 +1,7 @@
 import assign from './modules/assign';
 import Events from './modules/events';
 
-class Card extends Events {
+class LotteryCard extends Events {
     constructor(canvas, options) {
         super();
 
@@ -105,25 +105,22 @@ class Card extends Events {
     onTouchStart(e) {
         e.preventDefault();
         if (this._state == 'end') return;
+        if (this.has('start')) this.trigger('start');
 
         //绘制起点
-        var draw = () => {
-            let point = this.getEventXY(e);
-            this._state = 'start';
-            this._touch = true;
-            this._first = false;
+        let point = this.getEventXY(e);
+        this._state = 'start';
+        this._touch = true;
+        this._first = false;
 
-            this.ctx.beginPath();
-            this.ctx.arc(point.x, point.y, this.options.size / 2, 0, Math.PI * 2, true);
-            this.ctx.closePath();
-            this.ctx.fill();
+        this.ctx.beginPath();
+        this.ctx.arc(point.x, point.y, this.options.size / 2, 0, Math.PI * 2, true);
+        this.ctx.closePath();
+        this.ctx.fill();
 
-            this.ctx.beginPath();
-            this.ctx.lineWidth = this.options.size;
-            this.ctx.moveTo(point.x, point.y);
-        };
-
-        this.has('start') && this._first ? this.trigger('start', draw) : draw();
+        this.ctx.beginPath();
+        this.ctx.lineWidth = this.options.size;
+        this.ctx.moveTo(point.x, point.y);
     }
 
     onTouchMove(e) {
@@ -169,4 +166,4 @@ class Card extends Events {
     }
 }
 
-export default Card;
+export default LotteryCard;

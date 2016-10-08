@@ -2,7 +2,7 @@ import assign from './modules/assign';
 import Events from './modules/events';
 import animationEnd from './modules/animationEnd';
 
-class TigerRoller {
+class LotteryTigerRoller {
     constructor(elem) {
         this.elem = elem;
         this.items = elem.children;
@@ -49,7 +49,7 @@ class TigerRoller {
     }
 }
 
-class Tiger extends Events {
+class LotteryTiger extends Events {
     constructor(toggle, rollers, options) {
         super();
 
@@ -63,7 +63,7 @@ class Tiger extends Events {
         //初始化滚轴
         this.rollerQueue = [];
         for (let i = 0; i < rollers.length; i++) {
-            this.rollerQueue.push(new TigerRoller(rollers[i]));
+            this.rollerQueue.push(new LotteryTigerRoller(rollers[i]));
         }
 
         //如果大小是可变的就绑定resize事件
@@ -97,15 +97,14 @@ class Tiger extends Events {
 
     draw() {
         if (this.toggle.classList.contains('z-active')) return;
-        var _draw = () => {
-            this.toggle.classList.add('z-active');
-            for (let i = 0, l = this.rollerQueue.length; i < l; i++) {
-                this.rollerQueue[i].start(i * this.options.interval);
-            }
-        };
+        if (this.has('start')) this.trigger('start');
         this._startTime = (new Date()).getTime();
-        this.has('start') ? this.trigger('start', _draw) : _draw();
+
+        this.toggle.classList.add('z-active');
+        for (let i = 0, l = this.rollerQueue.length; i < l; i++) {
+            this.rollerQueue[i].start(i * this.options.interval);
+        }
     }
 }
 
-export default Tiger;
+export default LotteryTiger;

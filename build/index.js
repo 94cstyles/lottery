@@ -19,29 +19,21 @@ const banner = `/*!
 var builds = [{
     entry: 'src/card.js',
     format: 'umd',
-    moduleName: 'Card',
+    moduleName: 'LotteryCard',
     dest: 'dist/card.js',
     banner: true
 }, {
     entry: 'src/tiger.js',
     format: 'umd',
-    moduleName: 'Tiger',
+    moduleName: 'LotteryTiger',
     dest: 'dist/tiger.js',
     banner: true
 }, {
     entry: 'src/dial.js',
     format: 'umd',
-    moduleName: 'Dial',
+    moduleName: 'LotteryDial',
     dest: 'dist/dial.js',
     banner: true
-}, {
-    env: 'production',
-    entry: 'src/lottery.js',
-    format: 'umd',
-    moduleName: 'Lottery',
-    dest: 'dist/lottery.js',
-    banner: true,
-    uglify: true
 }];
 
 if (process.env.NODE_ENV === 'development') {

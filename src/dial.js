@@ -1,9 +1,9 @@
 import assign from './modules/assign';
 import Events from './modules/events';
-import setStyle from './modules/setStyle';
+import getPrefix from './modules/getPrefix';
 import {requestAnimationFrame, cancelAnimationFrame} from './modules/requestAnimationFrame';
 
-class Dial extends Events {
+class LotteryDial extends Events {
     constructor(pointer, options) {
         super();
 
@@ -19,9 +19,9 @@ class Dial extends Events {
 
     init() {
         //初始化样式设定
-        this._transform = setStyle(this.pointer, 'transform', 'translate3d(0,0,0)');
-        setStyle(this.pointer, 'backfaceVisibility', 'hidden');
-        setStyle(this.pointer, 'perspective', '1000px');
+        this._transform = getPrefix(this.pointer, 'transform', 'translate3d(0,0,0)');
+        getPrefix(this.pointer, 'backfaceVisibility', 'hidden');
+        getPrefix(this.pointer, 'perspective', '1000px');
 
         this._raf = null;
         this._runAngle = 0;
@@ -35,7 +35,7 @@ class Dial extends Events {
         this._runAngle = 0;
         this._targetAngle = -1;
         this.trigger(event);
-        if (event == 'reset') setStyle(this.pointer, this._transform, 'translate3d(0,0,0) rotate(0deg)');
+        if (event == 'reset') getPrefix(this.pointer, this._transform, 'translate3d(0,0,0) rotate(0deg)');
     }
 
     setResult(index) {
@@ -51,37 +51,33 @@ class Dial extends Events {
         this._targetAngle = endAngle + (Math.floor(Math.random() * 4) + 4) * 360; //随机旋转几圈再停止
     }
 
+    step() {
+        //如果没有设置结束点 就匀速不停旋转
+        //如果设置了结束点 就减速到达结束点
+        if (this._targetAngle == -1) {
+            this._runAngle += this.options.speed;
+        } else {
+            this._angle = (this._targetAngle - this._runAngle) / this.options.speed;
+            this._angle = this._angle > this.options.speed ? this.options.speed : this._angle < 0.5 ? 0.5 : this._angle;
+            this._runAngle += this._angle;
+            this._runAngle = this._runAngle > this._targetAngle ? this._targetAngle : this._runAngle;
+        }
+        //指针旋转
+        getPrefix(this.pointer, this._transform, 'translate3d(0,0,0) rotate(' + (this._runAngle % 360) + 'deg)');
+
+        if (this._runAngle == this._targetAngle) {
+            this.reset('end');
+        } else {
+            this._raf = requestAnimationFrame(()=> this.step());
+        }
+    }
+
     draw() {
         if (this._raf) return;
-
-        var _draw = () => {
-            var angle = 0,
-                step = () => {
-                    //如果没有设置结束点 就匀速不停旋转
-                    //如果设置了结束点 就减速到达结束点
-                    if (this._targetAngle == -1) {
-                        this._runAngle += this.options.speed;
-                    } else {
-                        angle = (this._targetAngle - this._runAngle) / this.options.speed;
-                        angle = angle > this.options.speed ? this.options.speed : angle < 0.5 ? 0.5 : angle;
-                        this._runAngle += angle;
-                        this._runAngle = this._runAngle > this._targetAngle ? this._targetAngle : this._runAngle;
-                    }
-                    //指针旋转
-                    setStyle(this.pointer, this._transform, 'translate3d(0,0,0) rotate(' + (this._runAngle % 360) + 'deg)');
-
-                    if (this._runAngle == this._targetAngle) {
-                        this.reset('end');
-                    } else {
-                        this._raf = requestAnimationFrame(step);
-                    }
-                };
-
-            this._raf = requestAnimationFrame(step)
-        };
-
-        this.has('start') ? this.trigger('start', _draw) : _draw();
+        if (this.has('start')) this.trigger('start');
+        this._angle = 0;
+        this._raf = requestAnimationFrame(()=> this.step());
     }
 }
 
-export default Dial;
+export default LotteryDial;
