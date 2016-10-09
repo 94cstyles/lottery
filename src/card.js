@@ -105,7 +105,7 @@ class LotteryCard extends Events {
     onTouchStart(e) {
         e.preventDefault();
         if (this._state == 'end') return;
-        if (this.has('start')) this.trigger('start');
+        if (this.has('start') && this._first) this.trigger('start');
 
         //绘制起点
         let point = this.getEventXY(e);
