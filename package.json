@@ -1,7 +1,7 @@
 {
   "name": "lottery",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "description": "移动端抽奖插件[大转盘，老虎机，刮刮卡]",
   "main": "./dist/lottery.js",
   "scripts": {
     "dev": "NODE_ENV=development node build/index.js",
@@ -9,18 +9,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TOP-Chao/lottery.git"
+    "url": "git+https://github.com/94cstyles/lottery.git"
   },
-  "author": "",
+  "author": "cstyles",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TOP-Chao/lottery/issues"
+    "url": "https://github.com/94cstyles/lottery/issues"
   },
-  "homepage": "https://github.com/TOP-Chao/lottery#readme",
+  "homepage": "https://github.com/94cstyles/lottery#readme",
   "devDependencies": {
     "babel-preset-es2015-loose-rollup": "^7.0.0",
-    "rollup": "^0.35.10",
-    "rollup-plugin-babel": "^2.6.1",
-    "rollup-plugin-uglify": "^1.0.1"
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-html": "^2.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-uglify": "^1.0.2"
   }
 }

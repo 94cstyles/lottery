@@ -1,20 +1,20 @@
 const animationEvent = function () {
-    var el = document.createElement('div'),
-        animations = {
-            'animation': 'animationend',
-            'webkitAnimation': 'webkitAnimationEnd',
-            'msAnimation': 'MSAnimationEnd',
-            'oAnimation': 'oanimationend'
-        };
+  const el = document.createElement('div')
+  const animations = {
+    'animation': 'animationend',
+    'webkitAnimation': 'webkitAnimationEnd',
+    'msAnimation': 'MSAnimationEnd',
+    'oAnimation': 'oanimationend'
+  }
 
-    for (let t in animations) {
-        if (el.style[t] !== undefined) {
-            return animations[t];
-        }
+  for (const t in animations) {
+    if (el.style[t] !== undefined) {
+      return animations[t]
     }
+  }
 
-    return null;
-}();
+  return null
+}()
 
 /**
  * 处理animate动画结束时间
@@ -23,10 +23,10 @@ const animationEvent = function () {
  * @param animateTime 当不支持animationend使用settimeout处理 延迟时间
  */
 export default function (el, callback, animateTime = 0) {
-    function bind() {
-        callback();
-        el.removeEventListener(animationEvent, bind);
-    }
+  function bind () {
+    callback()
+    el.removeEventListener(animationEvent, bind)
+  }
 
-    animationEvent ? el.addEventListener(animationEvent, bind) : setTimeout(()=> callback(), animateTime);
+  animationEvent ? el.addEventListener(animationEvent, bind) : setTimeout(() => callback(), animateTime)
 }
